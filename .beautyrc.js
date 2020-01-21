@@ -13,6 +13,8 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, './dist'),
         publicPath: '/',
-        filename: `js/[name].${package.version}.js`
+        filename: `js/[name].${package.version}.js`,
+        library: 'panel',
+        libraryTarget: 'umd',
     }
 }

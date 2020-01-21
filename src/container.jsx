@@ -13,7 +13,9 @@ const initPos = {
     right: 50
 }
 
-export default () => {
+const ConfigContext = React.createContext()
+
+export default ({ config }) => {
     const [visible, setVisible] = useState(false)
 
     const [{ x, y }, set] = useSpring(() => ({ x: 0, y: 0 }))
@@ -38,11 +40,11 @@ export default () => {
         setVisible(status)
     }, [])
 
-    return <>
+    return <ConfigContext.Provider value={config}>
         <animated.div className={styles.container} {...bind()}
                       style={{ right, bottom, x, y }}>
             <Button type='primary' size='large' shape='circle' icon='setting' onClick={() => handlePanel(!visible)}/>
         </animated.div>
         <Box visible={visible} onClose={() => handlePanel(false)}/>
-    </>
+    </ConfigContext.Provider>
 }
