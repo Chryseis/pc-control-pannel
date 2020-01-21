@@ -2,18 +2,21 @@ export default [
     {
         title: '自定义ApiHost',
         key: 'customApiHost',
-        view_control: {
-            type: 'Input',
-            placeholder: '栗子：http(s)://www.baidu.com'
-        },
+        view_control: [
+            {
+                type: 'input',
+                placeholder: '栗子：http(s)://www.baidu.com',
+                key: 'customApiHost'
+            }
+        ],
         operate_control: [
             {
-                type: 'Button',
+                type: 'button',
                 text: '确定',
                 operate_type: 'confirm'
             },
             {
-                type: 'Button',
+                type: 'button',
                 text: '重置',
                 operate_type: 'reset'
             }
