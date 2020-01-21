@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "beauty start",
-    "build": "beauty build"
+    "build": "beauty build",
+    "analyze": "beauty analyze"
   },
   "author": "allen",
   "license": "ISC",
