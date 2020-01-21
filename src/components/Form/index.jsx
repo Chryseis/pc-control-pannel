@@ -3,35 +3,43 @@
 */
 import styles from './index.less'
 import React from 'react'
-import {Form, Row, Input, Button, message} from 'antd'
+import {Form, Row, Input, Button, message, Modal} from 'antd'
 
 const Control_Map = {
     'input': Input,
     'button': Button
 }
 
-export default Form.create()(({ form: { getFieldDecorator, validateFields, resetFields }, viewControl, operateControl }) => {
+export default Form.create()(({ form: { getFieldDecorator, validateFields, setFields }, viewControl, operateControl }) => {
 
     const confirm = () => {
         validateFields((err, values) => {
             if (!err) {
                 Object.keys(values).map(k => localStorage.setItem(k, values[k]))
-                message.success('apiHost已修改成功！')
+                Modal.confirm({
+                    title: '是否要刷新页面',
+                    content: '已修改成功，是否要刷新页面保证正常运行?',
+                    onOk() {
+                        location.reload()
+                    },
+                    onCancel() {
+                    }
+                })
             }
         })
     }
 
     const reset = () => {
-        viewControl.forEach(o => localStorage.removeItem(o.key))
-        resetFields(viewControl.map(o => o.key))
-        message.success('apiHost已重置！')
+        viewControl.forEach(o => localStorage.setItem(o.key, ''))
+        setFields(viewControl.reduce((o, c) => Object.assign(o, { [c.key]: '' }), {}))
+        message.success('已重置！')
     }
 
     return <Form>
         {
             viewControl.map(o => {
                 const Control = Control_Map[o.type.toLowerCase()]
-                return <Row className={styles.row} key={o.key}>
+                return <Row key={o.key}>
                     <Form.Item>
                         {
                             getFieldDecorator(o.key, {
